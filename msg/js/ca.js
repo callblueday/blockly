@@ -7,7 +7,7 @@ goog.provide('Blockly.Msg.ca');
 goog.require('Blockly.Msg');
 
 Blockly.Msg.ADD_COMMENT = "Afegeix un comentari";
-Blockly.Msg.AUTH = "Please authorize this app to enable your work to be saved and to allow it to be shared by you.";  // untranslated
+Blockly.Msg.AUTH = "Si us plau, autoritzeu que aquesta aplicació pugui desar la vostra feina i que la pugueu compartir.";
 Blockly.Msg.CHANGE_VALUE_TITLE = "Canvia valor:";
 Blockly.Msg.CHAT = "Xateja amb el teu col·laborador escrivint en aquest quadre!";
 Blockly.Msg.COLLAPSE_ALL = "Contraure blocs";
@@ -35,7 +35,7 @@ Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE = "continuar amb la segü
 Blockly.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK = "Sortir del bucle interior.";
 Blockly.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE = "Ometre la resta d'aquest bucle, i continuar amb la següent iteració.";
 Blockly.Msg.CONTROLS_FLOW_STATEMENTS_WARNING = "Advertència: Aquest bloc només es pot utilitzar dins d'un bucle.";
-Blockly.Msg.CONTROLS_FOREACH_HELPURL = "https://github.com/google/blockly/wiki/Loops#for-each for each block";  // untranslated
+Blockly.Msg.CONTROLS_FOREACH_HELPURL = "https://github.com/google/blockly/wiki/Loops#for-each bloc for-each";
 Blockly.Msg.CONTROLS_FOREACH_INPUT_INLIST = "en la llista";
 Blockly.Msg.CONTROLS_FOREACH_INPUT_INLIST_TAIL = "";  // untranslated
 Blockly.Msg.CONTROLS_FOREACH_INPUT_ITEM = "per a cada element";
@@ -76,6 +76,11 @@ Blockly.Msg.EXPAND_BLOCK = "Expandir bloc";
 Blockly.Msg.EXTERNAL_INPUTS = "Entrades externes";
 Blockly.Msg.HELP = "Ajuda";
 Blockly.Msg.INLINE_INPUTS = "Entrades en línia";
+Blockly.Msg.INPUT_ON_BOARD = "On Board";  // untranslated
+Blockly.Msg.INPUT_PORT_1 = "Port 1";  // untranslated
+Blockly.Msg.INPUT_PORT_2 = "Port 2";  // untranslated
+Blockly.Msg.INPUT_PORT_3 = "Port 3";  // untranslated
+Blockly.Msg.INPUT_PORT_4 = "Port 4";  // untranslated
 Blockly.Msg.LISTS_CREATE_EMPTY_HELPURL = "https://github.com/google/blockly/wiki/Lists#create-empty-list";  // untranslated
 Blockly.Msg.LISTS_CREATE_EMPTY_TITLE = "crear llista buida";
 Blockly.Msg.LISTS_CREATE_EMPTY_TOOLTIP = "Retorna una llista, de longitud 0, que no conté cap dada.";
