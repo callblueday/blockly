@@ -50,6 +50,7 @@
         </value>
       </block>
       <block type="controls_whileUntil"></block>
+      <block type="wait"></block>
     </category>
     <category name="Math">
       <block type="math_number"></block>
@@ -119,13 +120,33 @@
     Blockly.Xml.domToWorkspace(workspace,
         document.getElementById('startBlocks'));
 
+
+    function initApi(interpreter, scope) {
+     
+	  var wrapper = function(d) {
+	    return interpreter.createPrimitive(wait(d));
+	  }
+	  interpreter.setProperty(scope, 'wait',interpreter.createNativeFunction(wrapper));
+	 
+    };
     function showCode() {
       // Generate JavaScript code and display it.
       Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
       var code = Blockly.JavaScript.workspaceToCode(workspace);
       alert(code);
     }
-
+	var nextStepDelay = 10;
+	function wait(d) {
+	  nextStepDelay = d;
+	  nextStep();
+	}
+	function nextStep() {
+	  if (myInterpreter.step()) {
+		var temp = nextStepDelay;
+		nextStepDelay = 10;
+		window.setTimeout(nextStep, temp);
+	  }
+	}
     function runCode() {
       // Generate JavaScript code and run it.
       window.LoopTrap = 1000;

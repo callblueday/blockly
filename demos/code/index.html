@@ -278,8 +278,34 @@
       </block>
     </category>
     <sep></sep>
-    <category id="catVariables" custom="VARIABLE"></category>
+    <category id="catVariables" >
+    <block type="variables_set"></block>
+    </category>
     <category id="catFunctions" custom="PROCEDURE"></category>
+    <category id="catDrivers">
+      <block type="driver_run">
+        <value name="Speed">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="driver_turn">
+        <value name="Speed">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category id="catSensors">
+      <block type="sensor_ultrasonic">
+      </block>
+      <block type="sensor_light">
+      </block>
+      <block type="sensor_linefollower">
+      </block>
+    </category>
   </xml>
 
 </body>

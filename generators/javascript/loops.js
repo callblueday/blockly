@@ -178,3 +178,25 @@ Blockly.JavaScript['controls_flow_statements'] = function(block) {
   }
   throw 'Unknown flow statement.';
 };
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#b99xcz
+Blockly.Blocks['wait'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(60);
+    this.appendDummyInput()
+        .appendField("wait")
+        .appendField(new Blockly.FieldDropdown([["half a second", "500"], ["a second", "1000"], ["two seconds", "2000"], ["five seconds", "5000"]]), "DELAY");
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};
+
+
+Blockly.JavaScript['wait'] = function(block) {
+  var dropdown_delay = block.getFieldValue('DELAY');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'wait(' + dropdown_delay + ');\n';
+  return code;
+};
+

@@ -51,6 +51,7 @@
         </value>
       </block>
       <block type="controls_whileUntil"></block>
+      <block type="wait"></block>
     </category>
     <category name="Math">
       <block type="math_number"></block>
@@ -87,6 +88,7 @@
             </block>
           </value>
           <statement name="DO">
+          
             <block type="variables_set" inline="true">
               <field name="VAR">n</field>
               <value name="VALUE">
@@ -104,6 +106,8 @@
                   </value>
                 </block>
               </value>
+              <next>
+     		<block type="wait"><field name="DELAY">500</field></block></next>
             </block>
           </statement>
           <next>
@@ -127,7 +131,8 @@
     Blockly.Xml.domToWorkspace(workspace,
         document.getElementById('startBlocks'));
 
-    var myInterpreter = null;
+
+
 
     function initApi(interpreter, scope) {
       // Add an API function for the alert() block.
@@ -153,7 +158,13 @@
       };
       interpreter.setProperty(scope, 'highlightBlock',
           interpreter.createNativeFunction(wrapper));
-    }
+          
+	  var wrapper = function(d) {
+	    return interpreter.createPrimitive(wait(d));
+	  }
+	  interpreter.setProperty(scope, 'wait',interpreter.createNativeFunction(wrapper));
+	 
+    };
 
     var highlightPause = false;
 
@@ -175,10 +186,22 @@
       workspace.traceOn(true);
       workspace.highlightBlock(null);
     }
-
+	var nextStepDelay = 1;
+	function wait(d) {
+	  nextStepDelay = d;
+	}
+	function nextStep() {
+	  if (myInterpreter.step()) {
+		var temp = nextStepDelay;
+		nextStepDelay = 1;
+		window.setTimeout(nextStep, temp);
+	  }
+	}
     function stepCode() {
+    nextStep();
+    return;
       try {
-        var ok = myInterpreter.step();
+        var ok = nextStep();
       } finally {
         if (!ok) {
           // Program complete, no more code to execute.
