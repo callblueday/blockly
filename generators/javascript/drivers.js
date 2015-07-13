@@ -28,35 +28,15 @@ goog.provide('Blockly.JavaScript.drivers');
 
 goog.require('Blockly.JavaScript');
 
-function shortToBytes(num){
-	var buffer = new ArrayBuffer(2);
-	var intArr = new Uint8Array(buffer);
-	var s = new Int16Array(buffer);
-	s[0] = num;
-	return intArr;
-}
-function floatToBytes(num){
-	var buffer = new ArrayBuffer(4);
-	var intArr = new Uint8Array(buffer);
-	var f = new Float32Array(buffer);
-	f[0] = num;
-	return intArr;
-}
 Blockly.JavaScript['driver_run'] = function(block) {
   var dir = (block.getFieldValue('DIRECTION')=="FORWARD")?1:-1;
-  var speed = block.getFieldValue('SPEED');
-  var spd1 = shortToBytes(dir*speed);
-  var spd2 = shortToBytes(-dir*speed);
-  var code = "FF 55 07 00 02 05 "+(spd1[0].toString(16))+" "+(spd1[1].toString(16))+" "+(spd2[0].toString(16))+" "+(spd2[1].toString(16));
-  var code = 'document.location = "com.xeecos.blockly://demo?request="'+code;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  var speed = Blockly.JavaScript.valueToCode(block, 'SPEED', Blockly.JavaScript.ORDER_COMMA);
+  var code = "runSpeed("+speed+","+dir+");\n";
+  return code;
 };
 Blockly.JavaScript['driver_turn'] = function(block) {
   var dir = (block.getFieldValue('DIRECTION')=="LEFT")?1:-1;
-  var speed = block.getFieldValue('SPEED');
-  var spd1 = shortToBytes(dir*speed);
-  var spd2 = shortToBytes(dir*speed);
-  var code = "FF 55 07 00 02 05 "+(spd1[0].toString(16))+" "+(spd1[1].toString(16))+" "+(spd2[0].toString(16))+" "+(spd2[1].toString(16));
-  var code = 'document.location = "com.xeecos.blockly://demo?request="'+code;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  var speed = Blockly.JavaScript.valueToCode(block, 'SPEED', Blockly.JavaScript.ORDER_COMMA);
+  var code = "turnSpeed("+speed+","+dir+");\n";
+  return code;
 };

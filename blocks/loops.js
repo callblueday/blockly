@@ -320,3 +320,23 @@ Blockly.Blocks['controls_flow_statements'] = {
     }
   }
 };
+Blockly.Blocks['wait'] = {
+  init: function() {
+	  
+	  this.jsonInit({
+      "message0": "wait %1 s",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "DELAY",
+          "check": "Number"
+        }
+      ],
+      "previousStatement": true,
+      "nextStatement": true,
+      "colour": Blockly.Blocks.loops.HUE,
+      "tooltip": '',
+      "helpUrl": ''
+    });
+  }
+};

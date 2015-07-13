@@ -44,8 +44,9 @@ Blockly.Blocks['driver_run'] = {
 	var dropdown = new Blockly.FieldDropdown([['Forward', 'FORWARD'], ['Backward', 'BACKWARD']]);
     //this.appendDummyInput()
     
-    this.appendValueInput('Speed')
-    .setCheck('Number').appendField('Run')
+    this.appendValueInput('SPEED')
+    .setCheck('Number')
+    .appendField('Run')
     .appendField(dropdown, 'DIRECTION');
     this.setInputsInline(true);
 	this.setNextStatement(true);
@@ -63,8 +64,9 @@ Blockly.Blocks['driver_turn'] = {
 	var dropdown = new Blockly.FieldDropdown([['left', 'LEFT'], ['right', 'RIGHT']]);
     //this.appendDummyInput()
     
-    this.appendValueInput('Speed')
-    .setCheck('Number').appendField('Turn')
+    this.appendValueInput('SPEED')
+    .setCheck('Number')
+    .appendField('Turn')
     .appendField(dropdown, 'DIRECTION');
     this.setInputsInline(true);
 	this.setNextStatement(true);

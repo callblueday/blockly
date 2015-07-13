@@ -29,7 +29,7 @@
 
   <p>
     <button onclick="parseCode()">Parse JavaScript</button>
-    <button onclick="stepCode()" id="stepButton" disabled="disabled">Step JavaScript</button>
+    <button onclick="stepCode()" id="stepButton" disabled="disabled">Step JavaScript</button><button id="log">log</button>
   </p>
 
   <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
@@ -70,6 +70,30 @@
     </category>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
+    <category name="Drivers">
+        <block type="driver_run">
+            <value name="Speed">
+                <block type="math_number">
+                    <field name="Speed">100</field>
+                </block>
+            </value>
+        </block>
+        <block type="driver_turn">
+            <value name="Speed">
+                <block type="math_number">
+                    <field name="Speed">100</field>
+                </block>
+            </value>
+        </block>
+    </category>
+    <category name="Sensors">
+        <block type="sensor_ultrasonic">
+        </block>
+        <block type="sensor_light">
+        </block>
+        <block type="sensor_linefollower">
+        </block>
+    </category>
   </xml>
 
   <xml id="startBlocks" style="display: none">
@@ -164,20 +188,65 @@
 	  }
 	  interpreter.setProperty(scope, 'wait',interpreter.createNativeFunction(wrapper));
 	 
+	  var wrapper = function(d,p,o) {
+	    return interpreter.createPrimitive(getSensorValue(d,p,o));
+	  }
+	  interpreter.setProperty(scope, 'getSensorValue',interpreter.createNativeFunction(wrapper));
+	 
+	  var wrapper = function() {
+	    return interpreter.createPrimitive(getResponseValue());
+	  }
+	  interpreter.setProperty(scope, 'getResponseValue',interpreter.createNativeFunction(wrapper));
+    
+    var wrapper = function(msg) {
+        return interpreter.createPrimitive(print(msg));
+    }
+    interpreter.setProperty(scope, 'print', interpreter.createNativeFunction(wrapper));
     };
-
     var highlightPause = false;
-
-    function highlightBlock(id) {
+	 function highlightBlock(id) {
       workspace.highlightBlock(id);
       highlightPause = true;
     }
-
+function print(msg){
+    document.getElementById('log').childNodes[0].nodeValue = msg;
+    alert(msg);
+}
+    var cons = 0;
+	var _nextID = 0;
+   function getSensorValue(sensor,port){
+  		isRequesting = 1;
+		sensorCallback(1,1);
+	}
+	function getResponseValue(){
+		return cons;
+	}
+	function sensorCallback(nextID,value){
+   		cons = value;
+  		isRequesting = 0;
+  		_nextID++;
+  		if(_nextID>40){
+  			_nextID = 1;
+  		}
+	}
+	//n = r+5;
+	//_callback=function(r){\nn = r+5;\n};
     function parseCode() {
       // Generate JavaScript code and parse it.
       Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
       Blockly.JavaScript.addReservedWords('highlightBlock');
       var code = Blockly.JavaScript.workspaceToCode(workspace);
+      code = "var n = 0;\ngetSensorValue(1,1);\nn = getResponseValue()+5;\nprint(23.3);\n"
+//       var array = code.split("\n");
+      // for(var i=0;i<array.length;i++){
+//       	var c = array[i];
+//       	if(c.indexOf("getSensorValue")>-1){
+//       		var split = "getSensorValue"+c.split("getSensorValue")[1].split(")")[0]+")";
+//       		var output = "_callback=function(r){\n"+c.split(split).join("r")+"\n};"+split+";";
+//       		code=code.split(c).join(output);
+//       	}
+//       }
+
       myInterpreter = new Interpreter(code, initApi);
 
       alert('Ready to execute this code:\n\n' + code);
@@ -187,15 +256,24 @@
       workspace.highlightBlock(null);
     }
 	var nextStepDelay = 1;
+	var isRequesting = 0;
 	function wait(d) {
 	  nextStepDelay = d;
 	}
+	function timeout(){
+		isRequesting = 0;
+		nextStep();
+	}
 	function nextStep() {
-	  if (myInterpreter.step()) {
-		var temp = nextStepDelay;
-		nextStepDelay = 1;
-		window.setTimeout(nextStep, temp);
-	  }
+		if(isRequesting==0){
+			if (myInterpreter.step()) {
+				var temp = nextStepDelay;
+				nextStepDelay = 1;
+				window.setTimeout(nextStep, temp);
+			}
+	  	}else{
+	  		window.setTimeout(timeout,0.2);
+	  	}
 	}
     function stepCode() {
     nextStep();

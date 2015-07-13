@@ -28,20 +28,22 @@ goog.provide('Blockly.JavaScript.sensors');
 
 goog.require('Blockly.JavaScript');
 
-
 Blockly.JavaScript['sensor_ultrasonic'] = function(block) {
   // Text value.
-  var code = "alert('hello world!');";
+  var port = block.getFieldValue('PORT');
+  var code = "getSensorValue('ultrasonic',"+port.split('PORT')[1]+")";
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['sensor_light'] = function(block) {
   // Text value.
-  var code = "alert('hello world!');";
+  var port = block.getFieldValue('PORT');
+  var code = "getSensorValue('light',"+port.split('PORT')[1]+")";
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 Blockly.JavaScript['sensor_linefollower'] = function(block) {
   // Text value.
-  var code = "alert('hello world!');";
+  var port = block.getFieldValue('PORT');
+  var code = "getSensorValue('linefollower',"+port.split('PORT')[1]+")";
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

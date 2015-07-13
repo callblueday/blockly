@@ -77,7 +77,7 @@ Blockly.Blocks['sensor_light'] = {
    */
   init: function() {
     this.setColour(Blockly.Blocks.sensors.HUE);
-	var dropdown = new Blockly.FieldDropdown([['On Board', 'ONBOARD'],['Port 3', 'PORT3'], ['Port 4', 'PORT4']]);
+	var dropdown = new Blockly.FieldDropdown([['On Board', 'PORT6'],['Port 3', 'PORT3'], ['Port 4', 'PORT4']]);
     //this.appendDummyInput()
     
     this.appendDummyInput().appendField('Light')
